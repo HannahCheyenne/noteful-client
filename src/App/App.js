@@ -11,6 +11,9 @@ import ApiContext from '../ApiContext'
 import config from '../config'
 import './App.css'
 
+import MainError from '../MainError/MainError'
+import NavError from '../NavError/NavError'
+
 class App extends Component {
   state = {
     notes: [],
@@ -41,21 +44,15 @@ class App extends Component {
       })
   }
 
-  handleAddFolder = folder => {
+  addFolder = newFolder => {
     this.setState({
-      folders: [
-        ...this.state.folders,
-        folder
-      ]
+      folders: [...this.state.folders, newFolder]
     })
   }
 
-  handleAddNote = note => {
+  addNote = newNote => {
     this.setState({
-      notes: [
-        ...this.state.notes,
-        note
-      ]
+      notes: [...this.state.notes, newNote]
     })
   }
 
@@ -76,18 +73,9 @@ class App extends Component {
             component={NoteListNav}
           />
         )}
-        <Route
-          path='/note/:noteId'
-          component={NotePageNav}
-        />
-        <Route
-          path='/add-folder'
-          component={NotePageNav}
-        />
-        <Route
-          path='/add-note'
-          component={NotePageNav}
-        />
+        <Route path='/note/:noteId' component={NotePageNav}/>
+        <Route path='/add-folder' component={NotePageNav}/>
+        <Route path='/add-note' component={NotePageNav}/>
       </>
     )
   }
@@ -103,18 +91,10 @@ class App extends Component {
             component={NoteListMain}
           />
         )}
-        <Route
-          path='/note/:noteId'
-          component={NotePageMain}
+        <Route path='/note/:noteId' component={NotePageMain}
         />
-        <Route
-          path='/add-folder'
-          component={AddFolder}
-        />
-        <Route
-          path='/add-note'
-          component={AddNote}
-        />
+        <Route path='/add-folder' component={AddFolder}/>
+        <Route path='/add-note' component={AddNote}/>
       </>
     )
   }
@@ -123,26 +103,25 @@ class App extends Component {
     const value = {
       notes: this.state.notes,
       folders: this.state.folders,
-      addFolder: this.handleAddFolder,
-      addNote: this.handleAddNote,
+      addFolder: this.addFolder,
+      addNote: this.addNote,
       deleteNote: this.handleDeleteNote,
     }
     return (
       <ApiContext.Provider value={value}>
         <div className='App'>
-          <nav className='App__nav'>
-            {this.renderNavRoutes()}
-          </nav>
+          <NavError>
+            <nav className='App__nav'>{this.renderNavRoutes()}</nav>
+          </NavError>
           <header className='App__header'>
             <h1>
-              <Link to='/'>Noteful</Link>
-              {' '}
+              <Link to='/'>Noteful</Link>{' '}
               <FontAwesomeIcon icon='check-double' />
             </h1>
           </header>
-          <main className='App__main'>
-            {this.renderMainRoutes()}
-          </main>
+          <MainError>
+            <main className='App__main'>{this.renderMainRoutes()}</main>
+          </MainError>
         </div>
       </ApiContext.Provider>
     )

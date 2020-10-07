@@ -91,7 +91,6 @@ export default class AddNote extends Component {
         return res.json()
       })
       .then(note => {
-        note.id = note.id.toString()
         this.context.addNote(note)
         this.props.history.push(`/`)
       })
@@ -119,7 +118,6 @@ export default class AddNote extends Component {
   };
 
   renderForm = () => {
-    // const { folders = [] } = this.context
     return (
       <section className='AddNote'>
         <h2>Create a note</h2>
