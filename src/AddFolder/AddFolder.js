@@ -77,7 +77,8 @@ export default class AddFolder extends Component {
             <input 
               type='text' 
               id='folder-name-input' 
-              name='folder-name' 
+              name='folder-name'
+              placeholder='required'
               onChange={(e) => this.updateName(e.target.value)} />
           </div>
           <div className='buttons'>
