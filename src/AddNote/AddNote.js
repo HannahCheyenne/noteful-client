@@ -130,6 +130,7 @@ export default class AddNote extends Component {
               type='text'
               id='note-name-input'
               name='note-name'
+              placeholder='required'
               onChange={(e) => this.updateName(e.target.value)}
             />
             {this.state.name.touched && !this.validateName() ? (
@@ -148,7 +149,7 @@ export default class AddNote extends Component {
           </div>
           <div className='field'>
             <label htmlFor='note-folder-select'>
-              Folder
+              Folder (required)
             </label>
             <select
               id='note-folder-select'
